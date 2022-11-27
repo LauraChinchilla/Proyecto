@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- ========================= SECTION CONTENT (contenido) ========================= -->
+<section class="contenido"  >
+
+    {% if request.GET.command == 'verification' %}
+      <div class="container mx-auto alert alert-info" role="alert" style="max-width=380px; margin-top=100px">
+        Muchas gracias por registrarte. Te hemos enviado un email para confirmar tu cuenta [{{ request.GET.email }}]
+        <br><br>
+        Si ya verificaste tu cuenta aca puedes iniciar sesion <a href="{% url 'login' %}">Inicio de Sesion</a>
+      </div>
+
+    {% else %}
+
+
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width: 380px; margin-top:100px; box-shadow: 15px 15px 15px rgba(0,0,0,0.5);">
+          {% include 'includes/alerts.html' %}
+
+          <div class="card-body">
+
+          <h4 class="card-title mb-4">Inicio de Sesion</h4>
+          <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+
+              <div class="form-group">
+                 <input type="email" class="form-control" placeholder="Email" name="email" >
+              </div> <!-- form-group// -->
+
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" >
+              </div> <!-- form-group// -->
+
+              <div class="form-group">
+                  <a href="{% url 'forgotPassword' %}" class="float-right">Olvidaste tu contraseña?</a>
+
+              </div> <!-- form-group form-check .// -->
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+              </div> <!-- form-group// -->
+          </form>
+          </div> <!-- card-body.// -->
+          <p class="text-center mt-4">No tienes una cuenta? <a href="{% url 'register' %}">Registrate</a></p>
+         <br><br>
+
+        </div> <!-- card .// -->
+
+             <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+    {% endif %}
+
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+
+{% endblock %}
